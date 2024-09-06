@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+.navi{
+    padding :30px;
+    
+    word-spacing: 10px;font-size:20px;}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+.filters {
+    width: 20%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.filters h2 {
+    margin-top: 0;
+}
+
+.filters label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.filters select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.filters button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filters button:hover {
+    background-color: #45a049;
+}
+
+.content {
+    width: 75%;
+}
+
+.organization-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.organization {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.organization h3 {
+    margin-top: 0;
+}
+
+.organization p {
+    margin: 10px 0;
+}
+
+/* Add this to your existing CSS */
+.filters input[type="range"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.filters input[type="date"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.filters div {
+    margin-bottom: 10px;
+}
+
+.filters input[type="radio"] {
+    margin-right: 5px;
+}
