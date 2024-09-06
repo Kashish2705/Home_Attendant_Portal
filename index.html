@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Attendant Service Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Home Attendant Service Portal</h1>
+    </header>
+<nav class="navi"> <a href="#" class="navbar-logo">| Home </a>
+    <a href="view.html" class="navbar-logo">| view profile </a>
+    <a href="Req.html" class="navbar-logo">| Request History </a>
+    <a href="att.html" class="navbar-logo">| Apply as an attendant </a>
+    <a href="Support.html" class="navbar-logo">| Support |</a>
+
+
+</nav>
+
+    <div class="container">
+        <!-- Filter Section -->
+        <aside class="filters">
+            <h2>Filter Organizations</h2>
+
+            <!-- Location Filter -->
+            <label for="location">Location:</label>
+            <select id="location">
+                <option value="all">All</option>
+                <option value="city1">City 1</option>
+                <option value="city2">City 2</option>
+                <option value="city3">City 3</option>
+            </select>
+
+            <!-- Service Type Filter -->
+            <label for="serviceType">Service Type:</label>
+            <select id="serviceType">
+                <option value="all">All</option>
+                <option value="elderly">Elderly Care</option>
+                <option value="disabled">Disabled Care</option>
+                <option value="nursing">Nursing Care</option>
+            </select>
+
+            <!-- Price Filter -->
+            <label for="priceRange">Price Range:</label>
+            <input type="range" id="priceRange" min="1000" max="10000" step="500">
+            <span id="priceValue">5000</span>
+
+            <!-- Rating Filter -->
+            <label for="rating">Rating:</label>
+            <select id="rating">
+                <option value="all">All</option>
+                <option value="4">4 and above</option>
+                <option value="3">3 and above</option>
+            </select>
+
+            <!-- Duration Filter -->
+            <label for="duration">Duration (Enter Date):</label>
+            <input type="date" id="duration">
+
+            <!-- Gender Filter -->
+            <label>Gender:</label>
+            <div>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Male</label>
+            </div>
+            <div>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label>
+            </div>
+
+            <!-- Language Filter -->
+            <label for="language">Language:</label>
+            <select id="language">
+                <option value="all">All</option>
+                <option value="english">English</option>
+                <option value="hindi">Hindi</option>
+                <option value="tamil">Tamil</option>
+                <option value="telugu">Telugu</option>
+                <option value="marathi">Marathi</option>
+                <option value="bengali">Bengali</option>
+                <option value="kannada">Kannada</option>
+                <option value="gujarati">Gujarati</option>
+                <option value="punjabi">Punjabi</option>
+                <option value="malayalam">Malayalam</option>
+            </select>
+
+            <button id="filterBtn">Apply Filters</button>
+        </aside>
+
+        <!-- Content Section -->
+        <section class="content">
+            <div id="organizationList" class="organization-list">
+                <!-- Organization boxes will be dynamically generated here -->
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
