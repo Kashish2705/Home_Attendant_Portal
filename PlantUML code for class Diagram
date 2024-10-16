@@ -1,0 +1,74 @@
+@startuml
+
+class User {
+    - userID: int
+    - name: String
+    - email: String
+    - password: String
+    + userType: String
+    + login(): void
+    + logout(): void
+    + updateProfile(): void
+}
+
+class Customer {
+    - contactNumber: String
+    - address: String
+    + searchAttendants(): List<Attendant>
+    + viewHistory(): List<History>
+    + contactSupport(): void
+}
+
+class Attendant {
+    - qualification: String
+    - experience: String
+    - availability: String
+    + apply(): void
+    + updateAvailability(): void
+}
+
+class Organization {
+    - organizationID: int
+    - name: String
+    - contactInfo: String
+    + servicesOffered: List<Service>
+    + addAttendant(): void
+    + removeAttendant(): void
+    + getDetails(): void
+}
+
+class Service {
+    - serviceID: int
+    - serviceName: String
+    - description: String
+    + getServiceDetails(): void
+}
+
+class Support {
+    - supportID: int
+    - customerID: int
+    - message: String
+    - timestamp: Date
+    + createTicket(): void
+    + viewTickets(): List<Support>
+    + respondToTicket(): void
+}
+
+class History {
+    - historyID: int
+    - customerID: int
+    - serviceID: int
+    - date: Date
+    - details: String
+    + getHistoryByCustomer(): List<History>
+    + getServiceHistory(): List<History>
+}
+
+User <|-- Customer
+User <|-- Attendant
+Organization "1" o-- "*" Attendant
+Customer "1" o-- "*" History
+Customer "1" o-- "*" Support
+Organization "1" o-- "*" Service
+
+@enduml
