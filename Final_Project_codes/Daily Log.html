@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Log with Calendar</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            height: 80px;
+        }
+
+        button {
+            background-color: bisque;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: rgb(255, 180, 0);
+        }
+
+        .log-entry {
+            background-color: #ffebcc;
+            border-left: 5px solid bisque;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .calendar {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .calendar-day {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .calendar-day:hover {
+            background-color: #ddd;
+        }
+
+        .highlight {
+            background-color: lightgreen;
+        }
+
+        .today {
+            background-color: green; /* Today's date highlight color */
+            color: white; /* Text color for today's date */
+        }
+
+        .month-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Daily Log</h2>
+        <form id="logForm">
+            <textarea id="logInput" placeholder="Enter your update here..." required></textarea>
+            <button type="submit">Add Update</button>
+        </form>
+        <div id="logEntries"></div>
+        
+        <div class="month-controls">
+            <button id="prevMonth">◀</button>
+            <h3 id="monthDisplay"></h3>
+            <button id="nextMonth">▶</button>
+        </div>
+        <div id="calendar" class="calendar"></div>
+    </div>
+
+    <script>
+        const logEntries = {};
+        const logForm = document.getElementById('logForm');
+        const logInput = document.getElementById('logInput');
+        const calendar = document.getElementById('calendar');
+        const monthDisplay = document.getElementById('monthDisplay');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        
+        let currentDate = new Date();
+    
+        // Function to render the calendar
+        function renderCalendar() {
+            calendar.innerHTML = '';
+            const month = currentDate.getMonth();
+            const year = currentDate.getFullYear();
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const totalDays = lastDay.getDate();
+            const startDay = firstDay.getDay();
+    
+            monthDisplay.textContent = `${firstDay.toLocaleString('default', { month: 'long' })} ${year}`;
+    
+            // Add empty divs for days of the week
+            for (let i = 0; i < startDay; i++) {
+                const emptyDiv = document.createElement('div');
+                calendar.appendChild(emptyDiv);
+            }
+    
+            const todayString = new Date().toISOString().split('T')[0]; // Today's date in YYYY-MM-DD format
+    
+            // Create calendar days
+            for (let day = 1; day <= totalDays; day++) {
+                const dateString = `${year}-${month + 1}-${day}`;
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('calendar-day');
+                dayDiv.textContent = day;
+    
+                // Check if there's an entry for that day
+                if (logEntries[dateString]) {
+                    dayDiv.classList.add('highlight');
+                    dayDiv.style.color = 'green'; // Set text color to green for days with updates
+                }
+    
+                // Highlight today's date
+                if (dateString === todayString) {
+                    dayDiv.classList.add('today');
+                    dayDiv.style.color = 'green'; // Set today's date text color to green
+                    if (logEntries[todayString]) {
+                        dayDiv.classList.add('highlight'); // Also highlight if today has entries
+                    }
+                }
+    
+                dayDiv.title = logEntries[dateString] ? logEntries[dateString].join('\n') : 'No updates';
+    
+                dayDiv.addEventListener('click', () => {
+                    displayLogEntries(dateString); // Show log entries for clicked day
+                });
+    
+                calendar.appendChild(dayDiv);
+            }
+        }
+    
+        // Function to display log entries for a given day
+        function displayLogEntries(dateString) {
+            const updates = logEntries[dateString] || [];
+            if (updates.length > 0) {
+                alert(`Updates for ${dateString}:\n${updates.join('\n')}`);
+            } else {
+                alert(`No updates for ${dateString}`);
+            }
+        }
+    
+        // Function to add a new entry to the log
+        function addEntry(event) {
+            event.preventDefault();
+            const dateString = currentDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+            const entryText = logInput.value;
+    
+            // Store entry for the date
+            if (!logEntries[dateString]) {
+                logEntries[dateString] = [];
+            }
+            logEntries[dateString].push(entryText); 
+    
+            // Display the new log entry
+            const newLogEntry = document.createElement('div');
+            newLogEntry.classList.add('log-entry');
+            newLogEntry.textContent = entryText;
+    
+            const timestamp = document.createElement('div');
+            timestamp.classList.add('timestamp');
+            timestamp.textContent = new Date().toLocaleString();
+    
+            newLogEntry.appendChild(timestamp);
+            document.getElementById('logEntries').appendChild(newLogEntry);
+    
+            logInput.value = ''; // Clear input after submission
+    
+            // Render calendar to reflect today's date in green
+            renderCalendar(); // Refresh the calendar
+        }
+    
+        logForm.addEventListener('submit', addEntry);
+    
+        prevMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+    
+        nextMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+    
+        renderCalendar(); // Initial calendar render
+    </script>
+
+</body>
+</html>

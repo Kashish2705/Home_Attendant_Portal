@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendant Profile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+        body {
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .container {
+            display: flex;
+            margin: 20px auto;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .profile {
+            flex: 1;
+            background-color: aliceblue;
+            border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+            padding: 20px;
+            margin-right: 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+
+        .profile-title {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .profile-id {
+            font-size: 14px;
+            color: grey;
+        }
+
+        .account {
+            flex: 2;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+            padding: 20px;
+        }
+
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #768499;
+            margin-bottom: 20px;
+        }
+
+        .account-title {
+            font-size: 20px;
+            color: rgb(37, 37, 45);
+        }
+
+        .btn-call {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-call:hover {
+            background-color: #45a049;
+        }
+
+        .input-container {
+            margin-bottom: 15px;
+        }
+
+        .input-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #768499;
+        }
+
+        .input-container input, .input-container textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1.5px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .input-container input:focus, .input-container textarea:focus {
+            outline: none;
+            border: 1.5px solid #4CAF50;
+        }
+
+        .certified-symbol {
+            color: #4CAF50;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .star {
+            color: gold;
+            font-size: 20px;
+            margin-right: 2px;
+        }
+
+        .reviews {
+            font-size: 14px;
+            color: grey;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .profile {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <div class="profile-header">
+                <img src="photograph.jpg" alt="Attendant Photograph" class="profile-img"/>
+                <div>
+                    <h1 class="profile-title">Attendant Profile</h1>
+                    <p class="profile-id">Attendant ID: 1234xx</p>
+                </div>
+            </div>
+            <div class="input-container">
+                <label>Gender</label>
+                <p>Female</p> <!-- Fixed value for gender -->
+            </div>
+            <div class="input-container">
+                <label>Experience</label>
+                <p>5 years</p> <!-- Fixed value for experience -->
+            </div>
+            <div class="input-container rating">
+                <label>Rating</label>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">☆</span>
+                <p class="reviews">(25 customer reviews)</p> <!-- Fixed value for reviews -->
+                <p class="certified-symbol">✔️ Certified Attendant</p> <!-- Certified symbol -->
+            </div>
+        </div>
+
+        <form class="account">
+            <div class="account-header">
+                <h1 class="account-title">Account Settings</h1>
+            </div>
+
+            <div class="input-container">
+                <label>Client/Company Name</label>
+                <input type="text" placeholder="Stephanie Johnson" value="Stephanie Johnson" required>
+            </div>
+
+            <div class="input-container">
+                <label>Company Name (if applicable)</label>
+                <input type="text" placeholder="XYZ Services" value="XYZ Services" required>
+            </div>
+
+            <div class="input-container">
+                <label>License ID (if applicable) <span class="certified-symbol">✔️</span></label>
+                <input type="text" placeholder="LIC123456" value="LIC123456" required>
+            </div>
+
+            <div class="input-container">
+                <label>Phone No.</label>
+                <input type="text" placeholder="+91 88376 12345" value="+91 88376 12345" required>
+            </div>
+
+            <div class="input-container">
+                <label>Email</label>
+                <input type="email" placeholder="stephanie@example.com" value="stephanie@example.com" required>
+            </div>
+
+            <div class="input-container">
+                <label>Address</label>
+                <textarea placeholder="1234 Street, Haryana, India" required>1234 Street, Haryana, India</textarea>
+            </div>
+
+          
+        </form>
+    </div>
+</body>
+</html>

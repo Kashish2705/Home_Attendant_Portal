@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Attendant</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        
+        body {
+            background-color: #f2f2f2;
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #f2f2f2;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+        }
+
+        .chat-messages {
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 75%;
+        }
+
+        .message.from-attendant {
+            background-color: #e0f7fa;
+            align-self: flex-start;
+        }
+
+        .message.from-user {
+            background-color: #c8e6c9;
+            align-self: flex-end;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .chat-input button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .chat-input button:hover {
+            background-color: #45a049;
+        }
+
+        .call-button {
+            padding: 10px 15px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #008CBA;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .call-button:hover {
+            background-color: #007B9E;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="chatContainer">
+        <div class="chat-header">
+            <h2>Chat with Attendant</h2>
+            <div>
+                <button class="call-button" id="audioCallButton">Start Audio Call</button>
+                <button class="call-button" id="videoCallButton">Start Video Call</button>
+            </div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be appended here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="userMessage" placeholder="Type a message..." required>
+            <button id="sendMessage">Send</button>
+        </div>
+    </div>
+
+    <script>
+        class ChatInterface {
+            constructor() {
+                this.chatContainer = document.getElementById('chatContainer');
+                this.userInput = document.getElementById('userMessage');
+                this.sendMessageButton = document.getElementById('sendMessage');
+                this.audioCallButton = document.getElementById('audioCallButton');
+                this.videoCallButton = document.getElementById('videoCallButton');
+                this.chatMessagesContainer = document.getElementById('chatMessages');
+                this.init();
+            }
+
+            init() {
+                this.sendMessageButton.addEventListener('click', () => this.sendMessage());
+                this.audioCallButton.addEventListener('click', () => this.startAudioCall());
+                this.videoCallButton.addEventListener('click', () => this.startVideoCall());
+            }
+
+            sendMessage() {
+                const messageText = this.userInput.value.trim();
+                if (messageText) {
+                    this.appendMessage('user', messageText);
+                    this.userInput.value = '';
+
+                    // Simulate an attendant response
+                    setTimeout(() => {
+                        this.simulateAttendantResponse();
+                    }, 1000);
+                }
+            }
+
+            simulateAttendantResponse() {
+                this.appendMessage('attendant', 'Thank you for your message! How can I assist you?');
+            }
+
+            startAudioCall() {
+                alert('Audio call feature is not implemented in this demo.');
+            }
+
+            startVideoCall() {
+                alert('Video call feature is not implemented in this demo.');
+            }
+
+            appendMessage(sender, text) {
+                const message = document.createElement('div');
+                message.classList.add('message', `from-${sender}`);
+                message.textContent = text;
+                this.chatMessagesContainer.appendChild(message);
+                this.chatMessagesContainer.scrollTop = this.chatMessagesContainer.scrollHeight; // Scroll to bottom
+            }
+        }
+
+        // Instantiate the ChatInterface
+        const chatInterface = new ChatInterface();
+    </script>
+</body>
+</html>

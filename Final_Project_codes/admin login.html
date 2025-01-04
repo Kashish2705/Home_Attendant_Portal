@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body, h1, form, input, button {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        .login-container {
+            background-color: #fff;
+            padding: 3.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        h1 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        </style>
+</head>
+<body>
+    <div class="login-container">
+        <u><h1>Sign-up</h1></u>
+        <h2 style="text-align:center">Create your credentials</h2><br><br>
+        <form action="/submit-login" method="post">
+            <div class="form-group">
+                <label for="userID"><u>User ID</u></label>
+                <input type="text" id="userID" name="userID" placeholder='Create Username'required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="password"><u>Password</u></label>
+                <input type="password" id="password" name="password" placeholder="Create password" required>
+               
+            </div>
+            <a href="/forgot-password" style="text-decoration: none; color: #007bff;">Forgot Password?</a>
+            <br><br><br>
+            <button type="submit" class="submit-button" onclick="GoNext()">Submit</button>
+        </form>
+    </div>
+  <script>
+
+    function GoNext() {
+      window.location.href = "index1.html";
+    }
+  </script>
+</body>
+</html>

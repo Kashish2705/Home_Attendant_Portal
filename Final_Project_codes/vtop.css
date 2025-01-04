@@ -1,0 +1,99 @@
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-spacing: 2px;
+}
+
+.table-borderless td, .table-borderless th {
+    border: none;
+}
+
+.border {
+    border: 1px solid #90979e; /* Primary border color */
+}
+
+.border-primary {
+    border-color: #040507;
+}
+
+.header-cell {
+    background-color: #cfe0ff;
+    font-weight: bold;
+}
+
+th{padding:20px;}
+td{padding:10px;}
+
+.btn-add{
+    margin:10px;
+    width:8em;
+    height:3em;
+    cursor:pointer;
+    border:1px solid #768499;
+    border-radius: 2em;
+    color: rgb(7, 7, 19);
+    font-weight:bold;
+    margin-right:5px;
+    background-color:#fff;
+    transition-duration: 0.3s;
+    box-shadow:rgba(0,0,0,0.1);
+
+}
+
+.btn-add:hover{
+    background-color:#f9f3da; /*change*/
+    border-color: #eda2a2;
+    border-radius: 0px;
+}
+
+
+.value-cell {
+    background-color: #FAF0DD;
+}
+
+.profile{
+    flex:1;
+    margin-right:15px;
+    background-color:aliceblue;
+    box-shadow:rgba(0,0,0,0.16) 0px 1px 4px;
+    border-radius: 5px;
+    height:max-content;
+}
+
+.profile-header{
+    display:flex;
+    margin-left:15px;
+    margin: 35px;
+    width: 60px;
+    height:60px;
+}
+img{
+    width:100px;
+border-radius:10px;}
+
+.profile-text-container{
+    line-height: 0.5;
+}
+.profile-title{
+    font-family:"Poppins",sans-serif;
+    font-size:30px;
+    margin:15px;
+    line-height: 1.2;
+}
+
+
+/* Ensure no wrapping on small screens */
+@media screen and (max-width: 767px) {
+    .table-responsive > .table > thead > tr > th, 
+    .table-responsive > .table > tbody > tr > th, 
+    .table-responsive > .table > tfoot > tr > th, 
+    .table-responsive > .table > thead > tr > td, 
+    .table-responsive > .table > tbody > tr > td, 
+    .table-responsive > .table > tfoot > tr > td {
+        white-space: nowrap;
+    }
+}

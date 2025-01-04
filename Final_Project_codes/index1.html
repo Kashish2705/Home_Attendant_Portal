@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Attendant Booking Service</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+        * { font-family: "Poppins", sans-serif; }
+
+        header {
+            margin: 0px auto;
+            text-align: center;
+            padding: 30px;
+            background-color: bisque;
+            font-weight: 800;
+        }
+
+        .sidebar {
+            background-color: antiquewhite;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .sidebar a {
+            flex: 1;
+            text-align: center;
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-size: 19px;
+        }
+
+        #h, #i, #j, #k, #l {
+            border-color: rgb(8, 10, 10);
+            background-color: rgb(255, 210, 127);
+            margin: 2px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        #h:hover, #i:hover, #j:hover, #k:hover, #l:hover {
+            background-color: rgb(255, 180, 0);
+            color: white;
+            border-color: rgb(0, 0, 0);
+        }
+
+        .menu-button {
+            cursor: pointer;
+            font-size: 24px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000; /* Ensure it is on top of other elements */
+        }
+
+        .filter-menu {
+            display: none; /* Initially hidden */
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 400px; /* Set a maximum width */
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            overflow-x: auto; /* Add horizontal scroll if needed */
+            white-space: nowrap; /* Prevent line breaks */
+        }
+
+        .filter-menu label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .container {
+            display: flex; /* Use flexbox to align items */
+            margin: 20px; /* Add margin around the container */
+        }
+
+        .organization-list {
+            display: flex; /* Use flexbox for organization list */
+            flex-wrap: wrap; /* Allow wrapping of organization cards */
+            gap: 20px; /* Space between cards */
+            margin-left: 20px; /* Space between filters and organizations */
+            flex: 1; /* Allow this section to grow */
+        }
+
+        .organization {
+            border: 1px solid #ccc; /* Add border */
+            border-radius: 8px; /* Rounded corners */
+            padding: 10px; /* Inner padding */
+            width: 200px; /* Fixed width for cards */
+            position: relative; /* For positioning the image */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow effect */
+        }
+
+        .organization img {
+            width: 50px; /* Profile picture size */
+            height: 50px;
+            border-radius: 50%; /* Make it circular */
+            position: absolute;
+            top: 10px;
+            left: 10px; /* Position image in the corner */
+        }
+
+        .organization h3 {
+            margin-left: 70px; /* Offset text from profile picture */
+        }
+
+        .organization p {
+            margin-left: 70px; /* Offset description from profile picture */
+            font-size: 14px;
+        }
+
+        .quality-services {
+            margin: 20px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Home Attendant Booking Service</h1>
+    </header>
+    <a href="att.html" id="l">Apply as a Attendant</a>
+    
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <a href="Daily Log.html" id="h">Daily Log</a>
+        <a href="History.html" id="i">History</a>
+        <a href="grievance.html" id="j">Feedback/Grievance</a>
+        <a href="profile.html" id="k">Attendant Profile</a>
+        <a href="chatWithAttendant.html" id="k">Chat with Attendant</a>
+    </nav>
+
+    <div class="container">
+        <div class="menu-button" onclick="toggleFilters()">☰ Filters</div>
+
+        <div class="filter-menu" id="filterMenu">
+            <h2>Filters</h2>
+            
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="male"> Male
+            <input type="radio" id="female" name="gender" value="female"> Female
+            
+            <label for="languages">Languages:</label>
+            <select id="languages">
+                <option value="english">English</option>
+                <option value="hindi">Hindi</option>
+                <option value="other">Other</option>
+            </select>
+            <hr>
+
+            <h2>Select Booking Dates</h2>
+
+            <label for="fromDate">From Date:</label>
+            <input type="date" id="fromDate" name="fromDate" onchange="calculateDuration()"><br>
+
+            <label for="toDate">To Date:</label>
+            <input type="date" id="toDate" name="toDate" onchange="calculateDuration()"><br>
+
+            <p id="duration">Duration: 0 Days</p>
+
+            <hr>
+            <label>Severity:</label>
+            <div>
+                <input type="checkbox" id="bedridden" value="bedridden"> Bedridden<br>
+                <input type="checkbox" id="wheelchair" value="wheelchair"> Wheelchair Assistance<br>
+                <input type="checkbox" id="moderate" value="moderate"> Moderate Disability<br>
+                <input type="checkbox" id="acute" value="acute"> Acute Illness<br>
+                <input type="checkbox" id="chronic" value="chronic"> Chronic Illness<br>
+                <input type="checkbox" id="others" value="others"> Others<br>
+            </div>
+            <textarea id="othersDescription" placeholder="Please describe others..." style="display:none;"></textarea>
+
+            <label for="type">Filter by:</label>
+            <select id="type">
+                <option value="organization">Organization</option>
+                <option value="individual">Individual</option>
+            </select>
+
+            <button id="filterBtn" onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <!-- Content Section -->
+        <section class="content">
+            <div id="organizationList" class="organization-list">
+                <!-- Organization and individual profiles will be dynamically generated here -->
+            </div>
+        </section>
+    </div>
+
+    <div class="quality-services">
+        <h2>Quality Services We Provide</h2>
+        <ul>
+            <li>Compassionate and skilled attendants for all needs.</li>
+            <li>Personalized care plans tailored to individual requirements.</li>
+            <li>24/7 support and assistance available at your convenience.</li>
+            <li>Trained professionals experienced in healthcare and companionship.</li>
+            <li>Flexible booking options to suit your schedule.</li>
+            <li>Regular follow-ups to ensure continued satisfaction and care.</li>
+        </ul>
+    </div>
+
+
+
+    <script>
+        const organizations = [
+            { name: "John's Care", gender: "male", languages: ["english"], severity: ["bedridden"], image: "https://via.placeholder.com/50" },
+            { name: "Jane's Support", gender: "female", languages: ["hindi"], severity: ["wheelchair"], image: "https://via.placeholder.com/50" },
+            { name: "ABC Services", gender: "male", languages: ["english", "hindi"], severity: ["moderate"], image: "https://via.placeholder.com/50" },
+            { name: "XYZ Care", gender: "female", languages: ["other"], severity: ["acute"], image: "https://via.placeholder.com/50" },
+            { name: "CarePlus", gender: "female", languages: ["english"], severity: ["chronic"], image: "https://via.placeholder.com/50" },
+            { name: "Helping Hands", gender: "male", languages: ["hindi"], severity: ["bedridden"], image: "https://via.placeholder.com/50" },
+            { name: "Comfort Care", gender: "female", languages: ["english", "other"], severity: ["acute"], image: "https://via.placeholder.com/50" }
+        ];
+
+        // Initial display of organizations
+        displayOrganizations(organizations);
+
+        function toggleFilters() {
+            const menu = document.getElementById('filterMenu');
+            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
+        }
+
+        function calculateDuration() {
+            const fromDateInput = document.getElementById('fromDate');
+            const toDateInput = document.getElementById('toDate');
+            const durationDisplay = document.getElementById('duration');
+
+            const fromDate = new Date(fromDateInput.value);
+            const toDate = new Date(toDateInput.value);
+
+            if (fromDate && toDate && fromDate <= toDate) {
+                const duration = Math.ceil((toDate - fromDate + 1) / (1000 * 60 * 60 * 24)); // Duration in days
+                durationDisplay.textContent = `Duration: ${duration} Days`;
+            } else {
+                durationDisplay.textContent = `Duration: 0 Days`;
+            }
+        }
+
+        function applyFilters() {
+            const gender = document.querySelector('input[name="gender"]:checked')?.value;
+            const languages = document.getElementById('languages').value;
+            const severityChecks = document.querySelectorAll('input[type="checkbox"]:checked');
+            const severities = Array.from(severityChecks).map(checkbox => checkbox.value);
+
+            const filteredOrganizations = organizations.filter(org => {
+                const matchesGender = gender ? org.gender === gender : true;
+                const matchesLanguage = languages ? org.languages.includes(languages) : true;
+                const matchesSeverity = severities.length ? severities.some(sev => org.severity.includes(sev)) : true;
+                return matchesGender && matchesLanguage && matchesSeverity;
+            });
+
+            displayOrganizations(filteredOrganizations);
+        }
+
+        function displayOrganizations(orgs) {
+            const orgList = document.getElementById('organizationList');
+            orgList.innerHTML = ''; // Clear previous entries
+
+            if (orgs.length === 0) {
+                orgList.innerHTML = '<p>No organizations match the selected criteria.</p>';
+                return;
+            }
+
+            orgs.forEach(org => {
+                const orgDiv = document.createElement('div');
+                orgDiv.className = 'organization';
+                orgDiv.innerHTML = `
+                    <img src="${org.image}" alt="${org.name}"> <!-- Profile image -->
+                    <h3>${org.name}</h3>
+                    <p>Gender: ${org.gender}</p>
+                    <p>Languages: ${org.languages.join(', ')}</p>
+                    <p>Severity: ${org.severity.join(', ')}</p>
+                    <button class="contact-button" onclick="contactNow('${org.name}')">Contact Now</button>
+                `;
+                orgList.appendChild(orgDiv);
+            });
+        }
+
+        function contactNow(orgName) {
+            alert(`Contacting ${orgName}...`); // Replace this with actual contact functionality
+        }
+    </script>
+</body>
+</html>

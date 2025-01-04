@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us - Apply to be an Attendant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            flex-direction: column;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px;
+            align-items: center;
+        }
+
+        label {
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"], textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        input[type="file"] {
+            padding: 0;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button {
+            background-color: #ffd700; /* Goldenrod color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            grid-column: span 2;
+        }
+
+        button:hover {
+            background-color: #ffa500; /* Darker shade on hover */
+        }
+
+        .join-us {
+            background-color: #ffd700; /* Goldenrod color */
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 40px; /* Space from previous section */
+        }
+
+        .join-us p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="join-us">
+        <h2>Join Us as a Home Attendant</h2>
+        <p>If you are passionate about helping others and want to join our team, please fill out the form above to apply for training and employment.</p>
+    </div>
+    <div class="container">
+        <h2>Apply to be an Attendant</h2>
+        <form id="attendantForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select...</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="languages">Languages Known:</label>
+            <input type="text" id="languages" name="languages" required>
+
+            <label for="experience">Experience (Describe):</label>
+            <textarea id="experience" name="experience" required></textarea>
+
+            <label for="previous-job">Previous Job (if applicable):</label>
+            <input type="text" id="previous-job" name="previous-job">
+
+            <label for="certifications">Certifications:</label>
+            <input type="text" id="certifications" name="certifications" required>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" required></textarea>
+
+            <label for="work-type">Work Type:</label>
+            <select id="work-type" name="work-type" required>
+                <option value="">Select...</option>
+                <option value="day">Day Worker</option>
+                <option value="night">Night Worker</option>
+                <option value="full-day">Full Day Worker</option>
+            </select>
+
+            <label for="photo">Upload Photograph:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+
+            <label for="id-proof">Upload ID Proof:</label>
+            <input type="file" id="id-proof" name="id-proof" accept=".pdf, .jpg, .png" required>
+
+            <div class="full-width checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="#">terms and conditions</a></label>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Define the AttendantApplication class based on UML class diagram
+        class AttendantApplication {
+            constructor(name, age, gender, languages, experience, previousJob, certifications, address, workType, photo, idProof, termsAgreed) {
+                this.name = name;
+                this.age = age;
+                this.gender = gender;
+                this.languages = languages;
+                this.experience = experience;
+                this.previousJob = previousJob;
+                this.certifications = certifications;
+                this.address = address;
+                this.workType = workType;
+                this.photo = photo;
+                this.idProof = idProof;
+                this.termsAgreed = termsAgreed;
+            }
+
+            // Method to validate the form fields
+            validateFields() {
+                return this.name && this.age && this.gender && this.languages && this.experience && this.certifications &&
+                    this.address && this.workType && this.photo && this.idProof && this.termsAgreed;
+            }
+
+            // Method to simulate form submission
+            submitApplication() {
+                if (this.validateFields()) {
+                    alert("Application submitted successfully!");
+                } else {
+                    alert("Please fill out all required fields.");
+                }
+            }
+        }
+
+        // Form submission event handler
+        document.getElementById('attendantForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Create a new AttendantApplication object with form values
+            const application = new AttendantApplication(
+                document.getElementById('name').value,
+                document.getElementById('age').value,
+                document.getElementById('gender').value,
+                document.getElementById('languages').value,
+                document.getElementById('experience').value,
+                document.getElementById('previous-job').value,
+                document.getElementById('certifications').value,
+                document.getElementById('address').value,
+                document.getElementById('work-type').value,
+                document.getElementById('photo').files[0],
+                document.getElementById('id-proof').files[0],
+                document.getElementById('terms').checked
+            );
+
+            // Submit the application
+            application.submitApplication();
+        });
+    </script>
+
+</body>
+</html>

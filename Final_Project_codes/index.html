@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>My First Webpage</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+  </head>
+
+  <body>
+    <h1 class="gradient-text">Home Attendant Portal</h1>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form action="#">
+			<h1>Sign in</h1>
+           <u> <h3>As a client</h3></u>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>Enter login credentials</span>
+			<input type="text" placeholder="Name" />
+			<input type="email" placeholder="Email" />
+			<input type="password" placeholder="Password" />
+			<button>Sign In</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="#">
+			<h1>Sign in</h1>
+            <u><h3>As an Attendant/Organization</h3></u>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>Enter your login credentials</span>
+			<input type="Login ID" placeholder="Login ID" />
+			<input type="password" placeholder="Password" />
+			<a href="#">Forgot your password?</a>
+			<button>Sign In</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				
+				<h1>Welcome Back!</h1>
+				<p>Click below to sign in as a distributor</p>
+				<button class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Welcome Back !</h1>
+				<p>Click below to sign in as a Client</p>
+				<button class="ghost" id="signUp">Sign In</button>
+			</div>
+		</div>
+	</div>
+</div>
+<button class="btn-admin" onclick="openAdminPage()">Register as a New User</button>
+<script>const signUpButton = document.getElementById('signUp');
+	const signInButton = document.getElementById('signIn');
+	const container = document.getElementById('container');
+	
+	signUpButton.addEventListener('click', () => {
+		container.classList.add("right-panel-active");
+	});
+	
+	signInButton.addEventListener('click', () => {
+		container.classList.remove("right-panel-active");
+	});
+	
+	function openAdminPage(){
+		window.location.href='admin login.html';
+	}</script>
+</body>
+</html>

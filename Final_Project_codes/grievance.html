@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grievance and Feedback Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        
+        body {
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+            font-family: "Poppins", sans-serif;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: bisque;
+            font-weight: 800;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .rating {
+            margin: 10px 0;
+        }
+
+        .star {
+            color: grey;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #confirmationMessage {
+            margin-top: 20px;
+            color: #4CAF50;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Grievance/Feedback Form</h1>
+    </header>
+
+    <div class="container">
+        <div class="form-section">
+            <h2>Attendant Feedback Form</h2>
+            <form id="feedbackForm">
+                <label for="feedbackName">Current Attendant Name</label>
+                <input type="text" id="feedbackName" name="feedbackName" placeholder="Abdul">
+
+                <label for="attendantID">Attendant ID:</label>
+                <input type="text" id="attendantID" name="attendantID" placeholder="LIC23">
+
+                <label for="feedbackEmail">Your Email:</label>
+                <input type="email" id="feedbackEmail" name="feedbackEmail" required>
+
+                <label>Rate the Attendant:</label>
+                <div class="rating">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                <input type="hidden" id="feedbackRating" name="feedbackRating" required>
+
+                <label for="comments">Additional Comments:</label>
+                <textarea id="comments" name="comments" rows="5"></textarea>
+
+                <button type="submit">Submit Feedback</button>
+            </form>
+            <p id="feedbackConfirmationMessage"></p>
+        </div>
+
+        <div class="form-section">
+            <h2>Grievance Form</h2>
+            <form id="grievanceForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="issue">Describe Your Issue:</label>
+                <textarea id="issue" name="issue" rows="5" required></textarea>
+
+                <button type="submit">Submit Grievance</button>
+            </form>
+            <p id="grievanceConfirmationMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        class GrievanceForm {
+            constructor(formId, confirmationMessageId) {
+                this.form = document.getElementById(formId);
+                this.confirmationMessage = document.getElementById(confirmationMessageId);
+                this.init();
+            }
+
+            init() {
+                this.form.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const name = document.getElementById('name').value;
+                    this.submitGrievance(name);
+                });
+            }
+
+            submitGrievance(name) {
+                this.confirmationMessage.textContent = `Thank you, ${name}. Your grievance has been submitted.`;
+                this.form.reset();
+            }
+        }
+
+        class FeedbackForm {
+            constructor(formId, confirmationMessageId) {
+                this.form = document.getElementById(formId);
+                this.confirmationMessage = document.getElementById(confirmationMessageId);
+                this.stars = document.querySelectorAll('.star');
+                this.selectedRating = 0;
+                this.init();
+            }
+
+            init() {
+                this.stars.forEach(star => {
+                    star.addEventListener('click', () => {
+                        this.selectRating(star.getAttribute('data-value'));
+                    });
+                });
+
+                this.form.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const feedbackName = document.getElementById('feedbackName').value;
+                    this.submitFeedback(feedbackName);
+                });
+            }
+
+            selectRating(value) {
+                this.selectedRating = value;
+                document.getElementById('feedbackRating').value = this.selectedRating;
+                this.updateStarDisplay();
+            }
+
+            updateStarDisplay() {
+                this.stars.forEach(star => {
+                    star.style.color = star.getAttribute('data-value') <= this.selectedRating ? 'gold' : 'grey';
+                });
+            }
+
+            submitFeedback(name) {
+                this.confirmationMessage.textContent = `Thank you, ${name}. Your feedback has been submitted.`;
+                this.form.reset();
+                this.selectedRating = 0;
+                this.updateStarDisplay();
+            }
+        }
+
+        new GrievanceForm('grievanceForm', 'grievanceConfirmationMessage');
+        new FeedbackForm('feedbackForm', 'feedbackConfirmationMessage');
+    </script>
+</body>
+</html>
